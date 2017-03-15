@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="build/css/vendor.css">
+    <link rel="stylesheet" href="build/css/styles.css">
+    <script src="build/js/vendor.min.js"></script>
+    <script type="text/javascript" src="build/js/app.js"></script>
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sassy">
+        <p>This is a sassy paragraph!</p>
+        <div class="super sassy">
+          <p>This is a super sassy paragraph!</p>
+        </div>
+      </div>
+      <p>No one likes me because I'm not sassy enough...</p>
+    </div>
+    <div class="clock">
+      <form class="form-group "id="alarm-input">
+        <p>Remind me to go to sleep on <span id="target">
+          <select id="day">
+
+          </select>
+          at
+          <select id="hour">
+
+          </select>
+          :
+          <select id="min">
+
+          </select>
+          <select id="ampm">
+            <option value="PM">PM</option>
+            <option value="AM">AM</option>
+          </select>
+        </span>
+        </p>
+        <button type="submit">Set sleep reminder</button>
+        <button type="button" id="new-reminder">Set new reminder</button>
+        <button type="button" id="snooze">Snooze</button>
+
+      </form>
+      <div id="output">
+        <p>It is currently <span id="current"></span></p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+$kindasassy : Teal;
+$verysassy : HotPink;
+.sassy {
+  color:$kindasassy;
+  font-style: italic;
+  p {
+    border: 5px solid black;
+  }
+  .super{
+    background-color: $kindasassy;
+    color:$verysassy;
+    font-weight: bold;
+    p {
+      border: 5px solid SkyBlue;
+    }
+  }
+}
+
+.clock {
+  border: 3px solid blue;
+  border-radius: 10px;
+}
+
+#new-reminder, #snooze {
+  display:none;
+}
