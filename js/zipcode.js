@@ -3,7 +3,8 @@ var apiKey = require('./../.env').apiKey;
 function Zipcode(code) {
   this.zipcode = code;
   this.bikes = [];
-  this.LatLong = "";
+  this.Lat = null;
+  this.Long = null;
 }
 
 function getZipcodes(city, range){
@@ -44,7 +45,8 @@ Zipcode.prototype.getLatLong = function(code){
   var newArray = [];
   var zipCode = code.zipcode;
   $.get("https://maps.googleapis.com/maps/api/geocode/json?address="+zipCode+"&key=" + apiKey).then(function(response){
-    code.LatLong = response.results[0].geometry.location.lat +","+response.results[0].geometry.location.lng;
+    code.Lat = response.results[0].geometry.location.lat;
+    code.Long = response.results[0].geometry.location.lng;
     // console.log(zipCode + ": " +code.LatLong);
     newArray.push(code);
     // console.log(newArray);
