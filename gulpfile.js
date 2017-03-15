@@ -99,7 +99,7 @@ gulp.task('htmlBuild', function() {
   browserSync.reload();
 });
 
-gulp.task('serve', function() {//try adding ['build'] to this task
+gulp.task('serve', ['build'], function() {
   browserSync.init({
     server: {
       baseDir: "./",
