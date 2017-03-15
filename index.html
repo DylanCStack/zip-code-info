@@ -11,10 +11,15 @@
     <div class="container">
       <form>
         <p>Enter a location to search and see the number of bike thefts in the surrounding area(s).</p>
-        <label for="location">Enter a location</label>
-        <input type="text" placeholder="Portland,OR" id='city-name' value="97206">
-
-        <button id="search">Search</button>
+        <div class="form=group">
+          <label for="location">Enter a location</label>
+          <input type="text" placeholder="Portland,OR" id='city-name' value="97206" class="form-control">
+        </div>
+        <div class="form=group">
+          <label for="location">Enter a range in miles</label>
+          <input type="text" placeholder="5" id='range' value="3" class="form-control">
+        </div>
+        <button id="search" class="btn btn-info">Search</button>
       </form>
     </div>
   </body>

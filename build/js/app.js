@@ -4,8 +4,9 @@ function Zipcode(code) {
   this.bikes = [];
 }
 
-function getZipcodes(city){
-  $.get("https://bikeindex.org/api/v3/search?page=1&per_page100&location=" + city + "&distance=10&stoleness=proximity").then(function(response) {
+function getZipcodes(city, range){
+  $.get("https://bikeindex.org/api/v3/search?page=1&per_page=100&location=" + city +
+   "&distance="+ range +"&stolenness=proximity").then(function(response) {
     var allZipcodes = [];
     var stringCodes = [];
     var responseBikes = response.bikes;
@@ -20,10 +21,6 @@ function getZipcodes(city){
           newZip.bikes.push(responseBikes[index]);
           allZipcodes.push(newZip);
         } else {
-          console.log(responseBikes[index]);
-          console.log(stringCodes);
-          console.log(allZipcodes);
-          console.log("-----------------");
           allZipcodes[stringCodes.indexOf(zipCode)].bikes.push(responseBikes[index]);
         }
 
@@ -44,15 +41,13 @@ var getZipcodes = require("./../js/zipcode.js").getZipcodesModule;
 
 
 $(function(){
-  $.get("https://bikeindex.org/api/v3/search?page=1&per_page=100&location=97206&distance=10&stolenness=proximity", function(response){
-    // console.log(response);
-  });
 
   $('#search').click(function(event) {
     event.preventDefault();
     var city = $('#city-name').val();
+    var range = $("#range").val();
     // var test = new Zipcode();
-    var zipcodes = getZipcodes(city);
+    var zipcodes = getZipcodes(city, range);
     console.log(zipcodes);
   });
 
