@@ -1,5 +1,7 @@
+
 var Zipcode = require("./../js/zipcode.js").zipcodeModule;
 var getZipcodes = require("./../js/zipcode.js").getZipcodesModule;
+var Map = require("./../js/map.js").mapModule;
 
 
 
@@ -18,8 +20,10 @@ $(function(){
 
   });
 
+  var newMap = new Map();
+
   $("#make-map").click(function(){
-    fillMap(zipcodes);
+    newMap.fillMap(zipcodes);
 
   });
 
@@ -40,27 +44,6 @@ $(function(){
 //     alert("Your browser doesn't support the Geolocation API");
 //   }
 // }
-function fillMap(zipcodes) {
-
-  var userLatLng = new google.maps.LatLng(45.48563720000001,-122.5946256);
-
-
-  var myOptions = {
-    zoom : 16,
-    center : userLatLng,
-    mapTypeId : google.maps.MapTypeId.ROADMAP
-  };
-  // Draw the map - you have to use 'getElementById' here.
-  var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
-  // Place the marker
-  for(var i = 0; i<zipcodes.length; i++){
-    new google.maps.Marker({
-      map: mapObject,
-      position: new google.maps.LatLng(zipcodes[i].Lat,zipcodes[i].Long)
-    });
-  }
-
-}
-function geolocationError(positionError) {
-  alert(positionError);
-}
+// function geolocationError(positionError) {
+//   alert(positionError);
+// }

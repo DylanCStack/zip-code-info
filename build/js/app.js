@@ -2,6 +2,31 @@
 exports.apiKey = "AIzaSyApBa-WXsJ7_rzeREUMDEnjUvCe28oEtvw";
 
 },{}],2:[function(require,module,exports){
+
+function Map() {
+  var userLatLng = new google.maps.LatLng(45.48563720000001,-122.5946256);
+  var myOptions = {
+    zoom : 11,
+    center : userLatLng,
+    mapTypeId : google.maps.MapTypeId.ROADMAP
+  };
+  // Draw the map - you have to use 'getElementById' here.
+  this.map = new google.maps.Map(document.getElementById("map"), myOptions);
+}
+
+Map.prototype.fillMap = function(zipcodes){
+  // Place the marker
+  for(var i = 0; i<zipcodes.length; i++){
+    new google.maps.Marker({
+      map: this.map,
+      position: new google.maps.LatLng(zipcodes[i].Lat,zipcodes[i].Long)
+    });
+  }
+};
+
+exports.mapModule = Map;
+
+},{}],3:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
 
 function Zipcode(code) {
@@ -64,9 +89,11 @@ Zipcode.prototype.getLatLong = function(code){
 exports.zipcodeModule = Zipcode;
 exports.getZipcodesModule = getZipcodes;
 
-},{"./../.env":1}],3:[function(require,module,exports){
+},{"./../.env":1}],4:[function(require,module,exports){
+
 var Zipcode = require("./../js/zipcode.js").zipcodeModule;
 var getZipcodes = require("./../js/zipcode.js").getZipcodesModule;
+var Map = require("./../js/map.js").mapModule;
 
 
 
@@ -85,8 +112,10 @@ $(function(){
 
   });
 
+  var newMap = new Map();
+
   $("#make-map").click(function(){
-    fillMap(zipcodes);
+    newMap.fillMap(zipcodes);
 
   });
 
@@ -107,29 +136,8 @@ $(function(){
 //     alert("Your browser doesn't support the Geolocation API");
 //   }
 // }
-function fillMap(zipcodes) {
+// function geolocationError(positionError) {
+//   alert(positionError);
+// }
 
-  var userLatLng = new google.maps.LatLng(45.48563720000001,-122.5946256);
-
-
-  var myOptions = {
-    zoom : 16,
-    center : userLatLng,
-    mapTypeId : google.maps.MapTypeId.ROADMAP
-  };
-  // Draw the map - you have to use 'getElementById' here.
-  var mapObject = new google.maps.Map(document.getElementById("map"), myOptions);
-  // Place the marker
-  for(var i = 0; i<zipcodes.length; i++){
-    new google.maps.Marker({
-      map: mapObject,
-      position: new google.maps.LatLng(zipcodes[i].Lat,zipcodes[i].Long)
-    });
-  }
-
-}
-function geolocationError(positionError) {
-  alert(positionError);
-}
-
-},{"./../js/zipcode.js":2}]},{},[3]);
+},{"./../js/map.js":2,"./../js/zipcode.js":3}]},{},[4]);
