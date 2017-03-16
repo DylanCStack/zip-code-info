@@ -5,6 +5,9 @@ var Map = require("./../js/map.js").mapModule;
 
 
 $(function(){
+  $.get("https://portland.craigslist.org/search/bik", function(response){
+    console.log(response);
+  });
   var zipcodes = [];
   $('#search').click(function(event) {
     event.preventDefault();

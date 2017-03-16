@@ -15,7 +15,8 @@ Map.prototype.fillMap = function(zipcodes){
   var markers = [];
   for(var i = 0; i<zipcodes.length; i++){
     var infowindow = new google.maps.InfoWindow({
-      content: "<div id='" + zipcodes[i].zipcode +"'>"+ zipcodes[i].zipcode + "</div>"
+      content: "<h4 id='" + zipcodes[i].zipcode +"'><strong>"+ zipcodes[i].zipcode + "</strong></h4><br>" +
+               "<p>Number of bikes stolen: " + zipcodes[i].bikes.length + "</p>"
     });
 
     var marker = new google.maps.Marker(
@@ -27,6 +28,9 @@ Map.prototype.fillMap = function(zipcodes){
 
     markers.push(marker);
     markers[i].addListener('click', function() {
+      for (var a = 0; a < markers.length; a++) {
+        markers[a].thisInfowindow.close();
+      }
       this.thisInfowindow.open(map, this);
     });
   }
