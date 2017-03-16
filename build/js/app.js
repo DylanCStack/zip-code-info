@@ -18,14 +18,22 @@ Map.prototype.fillMap = function(zipcodes){
   // Place the marker
   var markers = [];
   for(var i = 0; i<zipcodes.length; i++){
-
     console.log(zipcodes[i]);
-    console.log(zipcodes);
-    console.log("-----------");
 
+
+    $('#zip-bike-info').append("<div id='" + zipcodes[i].zipcode + "' class='zipcodes'>" + zipcodes[i].zipcode + " Bikes Stolen: " + zipcodes[i].bikes.length + "<ul></ul></div>");
+    for (var bikeIndex = 0; bikeIndex < zipcodes[i].bikes.length; bikeIndex++) {
+      $('#'+zipcodes[i].zipcode).children('ul').append("<li> <ul>" +
+      "<li>"+ zipcodes[i].bikes[bikeIndex].manufacturer_name +  "</li>" +
+      "<li>" + zipcodes[i].bikes[bikeIndex].title + "</li>" +
+      "<li>" + zipcodes[i].bikes[bikeIndex].frame_model + "</li>" +
+      "<li>" + zipcodes[i].bikes[bikeIndex].serial + "</li>" +
+      "<li><img src='" + zipcodes[i].bikes[bikeIndex].thumb + "'></li>" +
+      "</ul></li>");
+    }
 
     var infowindow = new google.maps.InfoWindow({
-      content: "<h4 id='" + zipcodes[i].zipcode +"'><strong>"+ zipcodes[i].zipcode + "</strong></h4><br>" +
+      content: "<h4><strong>"+ zipcodes[i].zipcode + "</strong></h4><br>" +
                "<p>Number of bikes stolen: " + zipcodes[i].bikes.length + "</p>"
     });
 
@@ -33,7 +41,8 @@ Map.prototype.fillMap = function(zipcodes){
       {
         map: this.map,
         position: new google.maps.LatLng(zipcodes[i].Lat,zipcodes[i].Long),
-        thisInfowindow: infowindow
+        thisInfowindow: infowindow,
+        zipcode: zipcodes[i].zipcode
     });
 
     markers.push(marker);
@@ -42,6 +51,8 @@ Map.prototype.fillMap = function(zipcodes){
       for (var a = 0; a < markers.length; a++) {
         markers[a].thisInfowindow.close();
       }
+      $(".zipcodes").hide();
+      $('#'+this.zipcode).show();
       this.thisInfowindow.open(map, this);
     });
   }
@@ -92,14 +103,14 @@ function getZipcodes(city, range){
       // console.log(code);
     });
   }).then(function() {
-    console.log(allZipcodes);
-    console.log("-----^^ is right!");
     setTimeout(function(){
       newMap.fillMap(allZipcodes);
 
-    },900);
+    },800);
+    console.log(allZipcodes);
+    // console.log("-----^^ is right!");
   });
-  return allZipcodes;
+  // return allZipcodes;
 }
 
 Zipcode.prototype.getLatLong = function(code){
@@ -129,13 +140,12 @@ var Map = require("./../js/map.js").mapModule;
 
 
 $(function(){
-  // var newMap = new Map();
+  var newMap = new Map();
   var zipcodes = [];
 
   // $.get("https://portland.craigslist.org/search/bik", function(response){
   //   console.log(response);
   // });
-
 
   $('#search').click(function(event) {
     event.preventDefault();
@@ -147,13 +157,9 @@ $(function(){
     // console.log(zipcodes);
 
   });
-
-
   // $("#make-map").click(function(){
   //   // newMap.fillMap(zipcodes);
-  //
   // });
-
   // $('#locateUser').click(locateUser);
 });
 

@@ -40,14 +40,14 @@ function getZipcodes(city, range){
       // console.log(code);
     });
   }).then(function() {
-    console.log(allZipcodes);
-    console.log("-----^^ is right!");
     setTimeout(function(){
       newMap.fillMap(allZipcodes);
 
-    },900);
+    },800);
+    console.log(allZipcodes);
+    // console.log("-----^^ is right!");
   });
-  return allZipcodes;
+  // return allZipcodes;
 }
 
 Zipcode.prototype.getLatLong = function(code){

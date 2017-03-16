@@ -5,13 +5,12 @@ var Map = require("./../js/map.js").mapModule;
 
 
 $(function(){
-  // var newMap = new Map();
+  var newMap = new Map();
   var zipcodes = [];
 
   // $.get("https://portland.craigslist.org/search/bik", function(response){
   //   console.log(response);
   // });
-
 
   $('#search').click(function(event) {
     event.preventDefault();
@@ -23,13 +22,9 @@ $(function(){
     // console.log(zipcodes);
 
   });
-
-
   // $("#make-map").click(function(){
   //   // newMap.fillMap(zipcodes);
-  //
   // });
-
   // $('#locateUser').click(locateUser);
 });
 
