@@ -1,4 +1,5 @@
 var apiKey = require('./../.env').apiKey;
+var Map = require('./../js/map.js').mapModule;
 
 function Zipcode(code) {
   this.zipcode = code;
@@ -9,6 +10,7 @@ function Zipcode(code) {
 
 function getZipcodes(city, range){
   var allZipcodes = [];
+  var newMap = new Map();
   $.get("https://bikeindex.org/api/v3/search?page=1&per_page=100&location=" + city +
    "&distance="+ range +"&stolenness=proximity").then(function(response) {
     var stringCodes = [];
@@ -37,6 +39,13 @@ function getZipcodes(city, range){
       code.getLatLong(code);
       // console.log(code);
     });
+  }).then(function() {
+    console.log(allZipcodes);
+    console.log("-----^^ is right!");
+    setTimeout(function(){
+      newMap.fillMap(allZipcodes);
+
+    },900);
   });
   return allZipcodes;
 }

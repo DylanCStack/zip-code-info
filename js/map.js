@@ -1,4 +1,3 @@
-
 function Map() {
   var userLatLng = new google.maps.LatLng(45.48563720000001,-122.5946256);
   var myOptions = {
@@ -11,9 +10,16 @@ function Map() {
 }
 
 Map.prototype.fillMap = function(zipcodes){
+
   // Place the marker
   var markers = [];
   for(var i = 0; i<zipcodes.length; i++){
+
+    console.log(zipcodes[i]);
+    console.log(zipcodes);
+    console.log("-----------");
+
+
     var infowindow = new google.maps.InfoWindow({
       content: "<h4 id='" + zipcodes[i].zipcode +"'><strong>"+ zipcodes[i].zipcode + "</strong></h4><br>" +
                "<p>Number of bikes stolen: " + zipcodes[i].bikes.length + "</p>"
@@ -27,6 +33,7 @@ Map.prototype.fillMap = function(zipcodes){
     });
 
     markers.push(marker);
+    // console.log(markers[i]);
     markers[i].addListener('click', function() {
       for (var a = 0; a < markers.length; a++) {
         markers[a].thisInfowindow.close();

@@ -2,7 +2,6 @@
 exports.apiKey = "AIzaSyApBa-WXsJ7_rzeREUMDEnjUvCe28oEtvw";
 
 },{}],2:[function(require,module,exports){
-
 function Map() {
   var userLatLng = new google.maps.LatLng(45.48563720000001,-122.5946256);
   var myOptions = {
@@ -15,9 +14,16 @@ function Map() {
 }
 
 Map.prototype.fillMap = function(zipcodes){
+
   // Place the marker
   var markers = [];
   for(var i = 0; i<zipcodes.length; i++){
+
+    console.log(zipcodes[i]);
+    console.log(zipcodes);
+    console.log("-----------");
+
+
     var infowindow = new google.maps.InfoWindow({
       content: "<h4 id='" + zipcodes[i].zipcode +"'><strong>"+ zipcodes[i].zipcode + "</strong></h4><br>" +
                "<p>Number of bikes stolen: " + zipcodes[i].bikes.length + "</p>"
@@ -31,6 +37,7 @@ Map.prototype.fillMap = function(zipcodes){
     });
 
     markers.push(marker);
+    // console.log(markers[i]);
     markers[i].addListener('click', function() {
       for (var a = 0; a < markers.length; a++) {
         markers[a].thisInfowindow.close();
@@ -44,6 +51,7 @@ exports.mapModule = Map;
 
 },{}],3:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
+var Map = require('./../js/map.js').mapModule;
 
 function Zipcode(code) {
   this.zipcode = code;
@@ -54,6 +62,7 @@ function Zipcode(code) {
 
 function getZipcodes(city, range){
   var allZipcodes = [];
+  var newMap = new Map();
   $.get("https://bikeindex.org/api/v3/search?page=1&per_page=100&location=" + city +
    "&distance="+ range +"&stolenness=proximity").then(function(response) {
     var stringCodes = [];
@@ -82,6 +91,13 @@ function getZipcodes(city, range){
       code.getLatLong(code);
       // console.log(code);
     });
+  }).then(function() {
+    console.log(allZipcodes);
+    console.log("-----^^ is right!");
+    setTimeout(function(){
+      newMap.fillMap(allZipcodes);
+
+    },900);
   });
   return allZipcodes;
 }
@@ -105,8 +121,7 @@ Zipcode.prototype.getLatLong = function(code){
 exports.zipcodeModule = Zipcode;
 exports.getZipcodesModule = getZipcodes;
 
-},{"./../.env":1}],4:[function(require,module,exports){
-
+},{"./../.env":1,"./../js/map.js":2}],4:[function(require,module,exports){
 var Zipcode = require("./../js/zipcode.js").zipcodeModule;
 var getZipcodes = require("./../js/zipcode.js").getZipcodesModule;
 var Map = require("./../js/map.js").mapModule;
@@ -114,10 +129,14 @@ var Map = require("./../js/map.js").mapModule;
 
 
 $(function(){
-  $.get("https://portland.craigslist.org/search/bik", function(response){
-    console.log(response);
-  });
+  // var newMap = new Map();
   var zipcodes = [];
+
+  // $.get("https://portland.craigslist.org/search/bik", function(response){
+  //   console.log(response);
+  // });
+
+
   $('#search').click(function(event) {
     event.preventDefault();
     var city = $('#city-name').val();
@@ -125,16 +144,15 @@ $(function(){
     // var test = new Zipcode();
     zipcodes = getZipcodes(city, range);
 
-    console.log(zipcodes);
+    // console.log(zipcodes);
 
   });
 
-  var newMap = new Map();
 
-  $("#make-map").click(function(){
-    newMap.fillMap(zipcodes);
-
-  });
+  // $("#make-map").click(function(){
+  //   // newMap.fillMap(zipcodes);
+  //
+  // });
 
   // $('#locateUser').click(locateUser);
 });

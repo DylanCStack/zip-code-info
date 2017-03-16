@@ -5,10 +5,14 @@ var Map = require("./../js/map.js").mapModule;
 
 
 $(function(){
-  $.get("https://portland.craigslist.org/search/bik", function(response){
-    console.log(response);
-  });
+  // var newMap = new Map();
   var zipcodes = [];
+
+  // $.get("https://portland.craigslist.org/search/bik", function(response){
+  //   console.log(response);
+  // });
+
+
   $('#search').click(function(event) {
     event.preventDefault();
     var city = $('#city-name').val();
@@ -16,16 +20,15 @@ $(function(){
     // var test = new Zipcode();
     zipcodes = getZipcodes(city, range);
 
-    console.log(zipcodes);
+    // console.log(zipcodes);
 
   });
 
-  var newMap = new Map();
 
-  $("#make-map").click(function(){
-    newMap.fillMap(zipcodes);
-
-  });
+  // $("#make-map").click(function(){
+  //   // newMap.fillMap(zipcodes);
+  //
+  // });
 
   // $('#locateUser').click(locateUser);
 });
