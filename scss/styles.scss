@@ -7,9 +7,32 @@ h4 {
   text-align: center;
 }
 #zip-bike-info{
-
+  list-style: none;
   div {
-    float:left;
+    ul>li>ul {
+      border: 2px solid lightblue;
+      margin: 10px;
+      min-height: 400px;
+      min-width:350px;
+      overflow:hidden;
+
+    }
+    ul {
+
+      width: auto;
+      height: auto;
+      // width:500px;
+      padding:5px;
+
+      li {
+        // border: 2px solid red;
+        width: 350px;
+        float:left;
+        list-style: none;
+      }
+
+    }
+
   }
 
   .zipcodes {
