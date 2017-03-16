@@ -23,12 +23,16 @@ Map.prototype.fillMap = function(zipcodes){
 
     $('#zip-bike-info').append("<div id='" + zipcodes[i].zipcode + "' class='zipcodes'>" + zipcodes[i].zipcode + " Bikes Stolen: " + zipcodes[i].bikes.length + "<ul></ul></div>");
     for (var bikeIndex = 0; bikeIndex < zipcodes[i].bikes.length; bikeIndex++) {
+      var img = "<img src='" + zipcodes[i].bikes[bikeIndex].thumb + "'>";
+      if (!zipcodes[i].bikes[bikeIndex].thumb) {
+        img = "no picture!";
+      }
       $('#'+zipcodes[i].zipcode).children('ul').append("<li> <ul>" +
       "<li>"+ zipcodes[i].bikes[bikeIndex].manufacturer_name +  "</li>" +
       "<li>" + zipcodes[i].bikes[bikeIndex].title + "</li>" +
       "<li>" + zipcodes[i].bikes[bikeIndex].frame_model + "</li>" +
       "<li>" + zipcodes[i].bikes[bikeIndex].serial + "</li>" +
-      "<li><img src='" + zipcodes[i].bikes[bikeIndex].thumb + "'></li>" +
+      "<li>" + img + "</li>" +
       "</ul></li>");
     }
 
