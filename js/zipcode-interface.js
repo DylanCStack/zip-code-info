@@ -13,9 +13,7 @@ $(function(){
     // var test = new Zipcode();
     zipcodes = getZipcodes(city, range);
 
-
     console.log(zipcodes);
-
 
   });
 

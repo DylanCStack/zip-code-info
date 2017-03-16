@@ -16,10 +16,22 @@ function Map() {
 
 Map.prototype.fillMap = function(zipcodes){
   // Place the marker
+  var markers = [];
   for(var i = 0; i<zipcodes.length; i++){
-    new google.maps.Marker({
-      map: this.map,
-      position: new google.maps.LatLng(zipcodes[i].Lat,zipcodes[i].Long)
+    var infowindow = new google.maps.InfoWindow({
+      content: "<div id='" + zipcodes[i].zipcode +"'>"+ zipcodes[i].zipcode + "</div>"
+    });
+
+    var marker = new google.maps.Marker(
+      {
+        map: this.map,
+        position: new google.maps.LatLng(zipcodes[i].Lat,zipcodes[i].Long),
+        thisInfowindow: infowindow
+    });
+
+    markers.push(marker);
+    markers[i].addListener('click', function() {
+      this.thisInfowindow.open(map, this);
     });
   }
 };
@@ -106,9 +118,7 @@ $(function(){
     // var test = new Zipcode();
     zipcodes = getZipcodes(city, range);
 
-
     console.log(zipcodes);
-
 
   });
 
