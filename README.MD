@@ -1,6 +1,6 @@
 # Bike Thefts by Zip Code
 
-### Authored by Dylan Stackhouse, 3/17/17.
+### Authored by Dylan Stackhouse and Phil Putnam
 
 ## Description
 A website which allows you to enter a zip code and will return the number of bikes stolen there and in the immediately surrounding zip codes according to bikeindex.org.
